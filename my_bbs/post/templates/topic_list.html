@@ -10,5 +10,9 @@
 <p>
     {{ value | replace_django }} 
 </p>
-
+<p>
+    {% for topic in topics%}
+    {{ topic }}
+    {% endfor%}
+</p>
 {% endblock %}

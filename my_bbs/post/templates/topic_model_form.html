@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} model form page {% endblock%}
+{% block content %}
+<form action="" method="POST">
+    <table>
+        {{ form }}
+    </table>
+    {% csrf_token %}
+    <input type="submit" value="提交">
+</form>
+{% endblock %}

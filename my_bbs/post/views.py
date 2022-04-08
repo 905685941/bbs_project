@@ -4,6 +4,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from post.models import Topic, Comment
 from post.post_service import build_topic_base_info, build_topic_detail_info, add_comment_to_topic
+from post.forms import TopicSearchForm, TopicModelForm
 
 # Create your views here.
 def topic_list_view(request):
@@ -43,6 +44,31 @@ def add_comment_to_topic_view(request):
     if topic and content:
         return JsonResponse({"id": add_comment_to_topic(topic, content).id})
     return JsonResponse({})
+
+
+def search_topic_form(request):
+    form = TopicSearchForm(request.GET)
+    if form.is_valid():
+        topics = Topic.objects.filter(title__contains=form.cleaned_data.get("title"))
+        print(topics)
+        return render(request, "topic_list.html", context={"topics": topics})
+    else:
+        return render(request, "search_topic.html", context={"form": form})
+
+def topic_model_form(request):
+    form = TopicModelForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            topic = Topic.objects.create(
+                title=form.cleaned_data.get("title"),
+                content=form.cleaned_data.get("content"),
+                user=request.user
+            )
+            return topic_detail_view(request, topic.id)
+        else:
+            return render(request, 'topic_model_form.html', context={"form": form})
+    else:
+        return render(request, "topic_model_form.html", context={"form": form})
 
 
 def hello_world(request):
