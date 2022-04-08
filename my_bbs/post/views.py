@@ -43,3 +43,10 @@ def add_comment_to_topic_view(request):
     if topic and content:
         return JsonResponse({"id": add_comment_to_topic(topic, content).id})
     return JsonResponse({})
+
+
+def hello_world(request):
+    """
+    模板的使用
+    """
+    return render(request, "topic_list.html", context={"data": "hello world1111", "value": "django"})

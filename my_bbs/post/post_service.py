@@ -37,7 +37,6 @@ def build_topic_detail_info(topic):
     """
     构造topic详情信息
     """
-    print(topic.title)
     comment_qs = Comment.objects.filter(topic=topic)
     return {
         "id": topic.id,

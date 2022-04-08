@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% block title %} topic list {% endblock %}
+{% block content%}
+<p> {{ data }} </p>
+
+{% load custom_tag %}
+<p>
+    {% prefix_tag 'Django BBS' %}
+</p>
+<p>
+    {{ value | replace_django }} 
+</p>
+
+{% endblock %}
