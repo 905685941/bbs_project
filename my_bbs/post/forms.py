@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import Comment
 from django import forms
 
 from post.models import Topic
@@ -16,3 +17,7 @@ class TopicModelForm(forms.ModelForm):
     class Meta:
         model = Topic
         exclude = ("is_online", "user")
+
+class CommentModelForm(forms.ModelForm):
+    class Meta:
+        model = Comment
